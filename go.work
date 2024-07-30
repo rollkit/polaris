@@ -1,4 +1,4 @@
-go 1.21.6
+go 1.22
 
 use (
 	./build/tools
@@ -10,3 +10,5 @@ use (
 	./eth
 	./lib
 )
+
+replace github.com/cosmos/cosmos-sdk => github.com/rollkit/cosmos-sdk v0.50.7-rollkit-v0.13.3-no-fraud-proofs

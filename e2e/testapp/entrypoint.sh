@@ -106,7 +106,7 @@ if [[ $overwrite == "y" || $overwrite == "Y" ]]; then
 
 	ADDRESS=$(jq -r '.address' $HOMEDIR/config/priv_validator_key.json)
 	PUB_KEY=$(jq -r '.pub_key' $HOMEDIR/config/priv_validator_key.json)
-	jq --argjson pubKey "$PUB_KEY" '.consensus["validators"]=[{"address": "'$ADDRESS'", "pub_key": $pubKey, "power": "1000000000000000", "name": "Rollkit Sequencer"}]' "$GENESIS" >"$TMP_GENESIS" && mv "$TMP_GENESIS" "$GENESIS"
+jq --argjson pubKey "$PUB_KEY" '.consensus["validators"]=[{"address": "'$ADDRESS'", "pub_key": $pubKey, "power": "1000000000000000", "name": "Rollkit Sequencer"}]' "$GENESIS" >"$TMP_GENESIS" && mv "$TMP_GENESIS" "$GENESIS"
 
 	# Run this to ensure everything worked and that the genesis file is setup correctly
 	./build/bin/polard genesis validate-genesis --home "$HOMEDIR"
@@ -116,8 +116,9 @@ if [[ $overwrite == "y" || $overwrite == "Y" ]]; then
 	fi
 fi
 # set the data availability layer's block height from local-celestia-devnet
-DA_BLOCK_HEIGHT=$(curl http://0.0.0.0:26657/block | jq -r '.result.block.header.height')
-echo $DA_BLOCK_HEIGHT
+#DA_BLOCK_HEIGHT=$(curl http://0.0.0.0:26657/block | jq -r '.result.block.header.height')
+#echo $DA_BLOCK_HEIGHT
+
 
 # Start the node (remove the --pruning=nothing flag if historical queries are not needed)
-./build/bin/polard start --pruning=nothing "$TRACE" --log_level $LOGLEVEL --api.enabled-unsafe-cors --api.enable --api.swagger --minimum-gas-prices=0.0001abera --home "$HOMEDIR" --rollkit.aggregator true --rollkit.da_start_height $DA_BLOCK_HEIGHT --rollkit.da_block_time 2s
+./build/bin/polard start --pruning=nothing "$TRACE" --log_level $LOGLEVEL --api.enabled-unsafe-cors --api.enable --api.swagger --minimum-gas-prices=0.0001abera --home "$HOMEDIR" --rollkit.aggregator true --rollkit.da_block_time 1s --rollkit.da_address=http://localhost:7980
