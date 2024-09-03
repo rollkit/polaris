@@ -97,7 +97,7 @@ jobs:
         uses: docker/setup-buildx-action@v2
 
       - name: Download image artifact
-        uses: actions/download-artifact@v2
+        uses: actions/download-artifact@v4.1.7
         with:
           name: ${{ matrix.base-image }}
 
@@ -137,7 +137,7 @@ jobs:
           cache-dependency-path: "**/*.sum"
 
       - name: Download image artifact
-        uses: actions/download-artifact@v2
+        uses: actions/download-artifact@v4.1.7
         with:
           name: ${{ matrix.base-image }}
       - name: Load image
@@ -166,7 +166,7 @@ jobs:
           check-latest: true
           cache-dependency-path: "**/*.sum"
       - name: Download image artifact
-        uses: actions/download-artifact@v2
+        uses: actions/download-artifact@v4.1.7
         with:
           name: ${{ matrix.base-image }}
       - name: Load image
