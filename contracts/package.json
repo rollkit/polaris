@@ -13,6 +13,6 @@
   "license": "ISC",
   "devDependencies": {
     "@nomicfoundation/hardhat-foundry": "^1.0.1",
-    "hardhat": "^2.16.0"
+    "hardhat": "^2.22.13"
   }
 }
